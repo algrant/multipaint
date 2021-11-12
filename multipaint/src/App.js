@@ -17,6 +17,8 @@ const DataCanvas = props => {
   return <canvas ref={canvasRef} width={width} height={height} {...props}/>
 }
 
+const BLACK = [0,0,0];
+const GREY = [128, 128, 128];
 
 const App = () => {
   const width = 512;
@@ -24,24 +26,51 @@ const App = () => {
 
   // easier to watch update change rather than try to calculate if imdata changed...
   const [update, setUpdate] = useState(0);
+  const [mouseDown, setMouseDown] = useState(false);
+  const [colour, setColour] = useState(BLACK);
 
   const [multiPaint] = useState(() => {
     return new MultiPaint(width, height)
   });
 
-  const onMouseOver = (event) => {
-    const x = event.nativeEvent.layerX;
-    const y = event.nativeEvent.layerY;
-    multiPaint.setSquareColour(x, y, 5, [0, 0, 0]);
+  const onMouseMove = (event) => {
 
-    setUpdate(update + 1);
+    if (mouseDown) {
+      const x = event.nativeEvent.layerX;
+      const y = event.nativeEvent.layerY;
+      multiPaint.setSquareColour(x, y, 5, colour);
+  
+      setUpdate(update + 1);
+    }
   };
+
+  const onMouseDown = (event) => {
+    setColour(BLACK);
+    setMouseDown(true);
+  }
+
+  const onRightMouseDown = (event) => {
+    event.preventDefault();
+    setMouseDown(true);
+    setColour(GREY);
+  }
+
+  const onMouseUp = () => {
+    setMouseDown(false);
+  }
+
+  const onMouseOut = () => {
+    setMouseDown(false);
+  }
 
   return (
     <div className="App">
       <DataCanvas 
         imdata = { multiPaint.imData }
-        onMouseMove={onMouseOver}
+        onMouseMove={onMouseMove}
+        onMouseDown={onMouseDown}
+        onContextMenu={onRightMouseDown}
+        onMouseUp={onMouseUp}
         update = { update }
         width={ width } 
         height={ height }
