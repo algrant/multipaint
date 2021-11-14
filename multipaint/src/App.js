@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import MultiPaint from './MultiPaint';
+import "./App.css";
 
 // A simple react component that watches an imdata
 // inspired by https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
@@ -17,12 +18,10 @@ const DataCanvas = props => {
   return <canvas ref={canvasRef} width={width} height={height} {...props}/>
 }
 
-const BLACK = [0,0,0];
+const BLACK = [0, 0, 0];
 const GREY = [128, 128, 128];
 
 const App = () => {
-  const width = 512;
-  const height = 512;
 
   // easier to watch update change rather than try to calculate if imdata changed...
   const [update, setUpdate] = useState(0);
@@ -30,7 +29,7 @@ const App = () => {
   const [colour, setColour] = useState(BLACK);
 
   const [multiPaint] = useState(() => {
-    return new MultiPaint(width, height)
+    return new MultiPaint()
   });
 
   const onMouseMove = (event) => {
@@ -72,8 +71,8 @@ const App = () => {
         onContextMenu={onRightMouseDown}
         onMouseUp={onMouseUp}
         update = { update }
-        width={ width } 
-        height={ height }
+        width={ multiPaint.width  } 
+        height={ multiPaint.height }
       /> 
     </div>
   );
