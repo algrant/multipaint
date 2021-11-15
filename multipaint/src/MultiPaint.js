@@ -1,45 +1,4 @@
-
-const genFifteenPuzzlePixelDex = (tileSize) => {
-  /*
-
-     1  2  3  4         2  8  3  6
-     5  6  7  8         7 13 10 14
-     9  10 11 12        1  9 12  4
-    13  14 15 *         5 11 15  *
-
-  */
-  
-  const shiftedSquares = [2, 8, 3, 6, 7, 13, 10, 14, 1, 9, 12, 4, 5, 11, 15];
-
-  const pixMatch = [];
-
-  shiftedSquares.forEach((newTile, posId) => {
-    const newId = newTile - 1;
-    
-    const oldX = (newId % 4)
-    const oldY = (newId - oldX )/ 4;
-
-    const newX = (posId % 4)
-    const newY = (posId - newX )/ 4;
-
-    for (let i = 0; i < tileSize; i++) {
-      for (let j = 0; j < tileSize; j++) {
-        pixMatch.push([
-          [
-            oldX*tileSize + i, 
-            oldY*tileSize + j
-          ],
-          [
-            newX*tileSize + i + 5*tileSize, 
-            newY*tileSize + j
-          ]
-        ])
-      }
-    }
-  });
-
-  return pixMatch;
-}
+import { genFifteenPuzzlePixelDex, genFifteenPuzzleMaskedPixels } from './15puzzleMap.js'
 
 class MultiPaint {
   constructor(height = 512, width = 9*512/4) {
@@ -69,22 +28,10 @@ class MultiPaint {
       return memo;
     }, {});
 
-    /* set opacity to 0 for in between spaces... */
-    for(let x = 512; x < 512 + 128; x++) {
-      for (let y = 0; y < 512; y++) {
-        const redPixel = (x + y*this.width)*4;
-        this.imData[redPixel + 3] = 0;
-      }
-    }
-    /* set opacity to 0 for 15s */
-    for(let x = 512 - 128; x < 512; x++) {
-      for (let y = 512 - 128; y < 512; y++) {
-        const redPixel = (x + y*this.width)*4;
-        this.imData[redPixel + 3] = 0;
-        const redPixel2 = (x + y*this.width + 512 + 128)*4;
-        this.imData[redPixel2 + 3] = 0;
-      }
-    }
+    genFifteenPuzzleMaskedPixels(512/4).forEach(([x, y]) => {
+      const redPixel = (x + y*this.width)*4;
+      this.imData[redPixel + 3] = 0;
+    })
   }
 
   getPixelColour(x, y) {
@@ -106,13 +53,43 @@ class MultiPaint {
   }
 
   setSquareColour(x, y, r, colour) {
-    const x_min = Math.max(x - r, 0);
-    const x_max = Math.min(x + r, this.width - 1);
-    const y_min = Math.max(y - r, 0);
-    const y_max = Math.min(y + r, this.height - 1);   
-    for(let i = x_min; i < x_max; i ++) {
-      for (let j = y_min; j < y_max; j ++) {
-        this.setPixelColour(i, j, colour);
+    const squareBrush = {
+      width: r*2 + 1,
+      height: r*2 + 1,
+      x_offset: -r,
+      y_offset: -r,
+      paint: () => true
+    }
+
+    this.setBrushColour(x, y, squareBrush, colour);
+  }
+  
+  setCircleColour(x, y, r, colour) {
+    const circleBrush = {
+      width: r*2 + 1,
+      height: r*2 + 1,
+      x_offset: -r,
+      y_offset: -r,
+      paint: (i, j) => (i - r)*(i - r) + (j - r)*(j - r) < r*r
+    }
+
+    this.setBrushColour(x, y, circleBrush, colour);
+  }
+
+  setBrushColour(x, y, brush, colour) {
+    for(let i = 0; i < brush.width; i ++) {
+      for (let j = 0; j < brush.height; j ++) {
+        const pix_x = x + brush.x_offset + i;
+        const pix_y = y + brush.y_offset + j;
+        if (
+          0 <= pix_x &&
+          pix_x < this.width &&
+          0 <= pix_y &&
+          pix_y < this.height &&
+          brush.paint(i, j)
+        ) {
+          this.setPixelColour(pix_x, pix_y, colour);
+        }
       }
     }
   }

@@ -37,7 +37,7 @@ const App = () => {
     if (mouseDown) {
       const x = event.nativeEvent.layerX;
       const y = event.nativeEvent.layerY;
-      multiPaint.setSquareColour(x, y, 5, colour);
+      multiPaint.setCircleColour(x, y, 15, colour);
   
       setUpdate(update + 1);
     }
@@ -70,6 +70,7 @@ const App = () => {
         onMouseDown={onMouseDown}
         onContextMenu={onRightMouseDown}
         onMouseUp={onMouseUp}
+        onMouseOut={onMouseOut}
         update = { update }
         width={ multiPaint.width  } 
         height={ multiPaint.height }
