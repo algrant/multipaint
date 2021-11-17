@@ -1,0 +1,32 @@
+.BrushSetup {
+  display: flex;
+  width: 100%;
+}
+
+.BrushView {
+  width: 120px;
+  height: 120px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  background: white;
+}
+
+.tooltip {
+  /* position: absolute;
+  top: 0px;
+  left: 55px; */
+  display: flex;
+  flex-direction: row;
+  border: 1px solid grey;
+  padding: 5px;
+  background: white;
+  border-radius: 5px;
+}
+
+.toolinput {
+  margin: 5px;
+}

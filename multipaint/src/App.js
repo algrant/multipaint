@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import MultiPaint from './MultiPaint';
+import BrushTool, { genCircleBrush } from './BrushTool';
 import "./App.css";
 
 // A simple react component that watches an imdata
@@ -28,6 +29,10 @@ const App = () => {
   const [mouseDown, setMouseDown] = useState(false);
   const [colour, setColour] = useState(BLACK);
 
+  const [leftBrush, setLeftBrush] = useState(genCircleBrush(10, "#FF0000"));
+  // const [rightBrush, setRightBrush] = useState({ colour: BLACK, brushType: CIRCLE });
+  // const [brush, setBrush] = useState(undefined);
+
   const [multiPaint] = useState(() => {
     return new MultiPaint()
   });
@@ -37,14 +42,16 @@ const App = () => {
     if (mouseDown) {
       const x = event.nativeEvent.layerX;
       const y = event.nativeEvent.layerY;
-      multiPaint.setCircleColour(x, y, 15, colour);
-  
+      multiPaint.setBrushColour(x, y, leftBrush.brush, leftBrush.colourArray);
       setUpdate(update + 1);
     }
   };
 
   const onMouseDown = (event) => {
-    setColour(BLACK);
+    const x = event.nativeEvent.layerX;
+    const y = event.nativeEvent.layerY;
+    multiPaint.setBrushColour(x, y, leftBrush.brush, leftBrush.colourArray);
+    setUpdate(update + 1);
     setMouseDown(true);
   }
 
@@ -64,17 +71,27 @@ const App = () => {
 
   return (
     <div className="App">
-      <DataCanvas 
-        imdata = { multiPaint.imData }
-        onMouseMove={onMouseMove}
-        onMouseDown={onMouseDown}
-        onContextMenu={onRightMouseDown}
-        onMouseUp={onMouseUp}
-        onMouseOut={onMouseOut}
-        update = { update }
-        width={ multiPaint.width  } 
-        height={ multiPaint.height }
-      /> 
+      <div className="FloatyView">
+        <div className="ToolBar">
+          <BrushTool 
+            brush={leftBrush} 
+            setBrush={ setLeftBrush }
+          />
+        </div>
+        <div className="CanvasContainer">
+          <DataCanvas 
+            imdata = { multiPaint.imData }
+            onMouseMove={onMouseMove}
+            onMouseDown={onMouseDown}
+            onContextMenu={onRightMouseDown}
+            onMouseUp={onMouseUp}
+            onMouseOut={onMouseOut}
+            update = { update }
+            width={ multiPaint.width  } 
+            height={ multiPaint.height }
+          /> 
+        </div>
+      </div>
     </div>
   );
 }
