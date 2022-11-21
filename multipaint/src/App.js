@@ -19,46 +19,34 @@ const DataCanvas = props => {
   return <canvas ref={canvasRef} width={width} height={height} {...props}/>
 }
 
-const BLACK = [0, 0, 0];
-const GREY = [128, 128, 128];
-
 const App = () => {
-
-  // easier to watch update change rather than try to calculate if imdata changed...
-  const [update, setUpdate] = useState(0);
+  // easier to flag updates rather than have react calculate when imdata changes...
+  const [imdataUpdate, setImdataUpdate] = useState(0);
   const [mouseDown, setMouseDown] = useState(false);
-  const [colour, setColour] = useState(BLACK);
 
   const [leftBrush, setLeftBrush] = useState(genCircleBrush(10, "#FF0000"));
-  // const [rightBrush, setRightBrush] = useState({ colour: BLACK, brushType: CIRCLE });
-  // const [brush, setBrush] = useState(undefined);
 
   const [multiPaint] = useState(() => {
     return new MultiPaint()
   });
+  
+  const paintAtEvent = (event) => {
+    const x = event.nativeEvent.offsetX;
+    const y = event.nativeEvent.offsetY;
+
+    multiPaint.paintPointBrushColour(x, y, leftBrush.brush, leftBrush.colourArray);
+    setImdataUpdate(imdataUpdate + 1);
+  }
 
   const onMouseMove = (event) => {
-
     if (mouseDown) {
-      const x = event.nativeEvent.layerX;
-      const y = event.nativeEvent.layerY;
-      multiPaint.setBrushColour(x, y, leftBrush.brush, leftBrush.colourArray);
-      setUpdate(update + 1);
+      paintAtEvent(event);
     }
   };
 
   const onMouseDown = (event) => {
-    const x = event.nativeEvent.layerX;
-    const y = event.nativeEvent.layerY;
-    multiPaint.setBrushColour(x, y, leftBrush.brush, leftBrush.colourArray);
-    setUpdate(update + 1);
+    paintAtEvent(event);
     setMouseDown(true);
-  }
-
-  const onRightMouseDown = (event) => {
-    event.preventDefault();
-    setMouseDown(true);
-    setColour(GREY);
   }
 
   const onMouseUp = () => {
@@ -83,10 +71,9 @@ const App = () => {
             imdata = { multiPaint.imData }
             onMouseMove={onMouseMove}
             onMouseDown={onMouseDown}
-            onContextMenu={onRightMouseDown}
             onMouseUp={onMouseUp}
             onMouseOut={onMouseOut}
-            update = { update }
+            update = { imdataUpdate }
             width={ multiPaint.width  } 
             height={ multiPaint.height }
           /> 

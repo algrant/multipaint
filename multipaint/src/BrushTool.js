@@ -5,8 +5,8 @@ import "./BrushTool.css"
 
 const hexToRGB = (hex) => {
   hex = '0x' + hex.slice(1,);
-  let r = hex >> 16 & 0xFF
-  let g = hex >> 8 & 0xFF
+  let r = (hex >> 16) & 0xFF
+  let g = (hex >> 8) & 0xFF
   let b = hex & 0xFF
   return [r, g, b];
 }
@@ -18,7 +18,7 @@ const squareBrush = (r) => ({
   height: r*2 + 1,
   x_offset: -r,
   y_offset: -r,
-  paint: () => true
+  paint_mask: () => true
 });
 
 export const genSquareBrush = (radius, colour) => {
@@ -38,7 +38,7 @@ const circleBrush = (r) => ({
   height: r*2 + 1,
   x_offset: -r,
   y_offset: -r,
-  paint: (i, j) => (i - r)*(i - r) + (j - r)*(j - r) < r*r
+  paint_mask: (i, j) => (i - r)*(i - r) + (j - r)*(j - r) < r*r
 });
 
 export const genCircleBrush = (radius, colour) => {
@@ -57,7 +57,6 @@ const BrushPicker = ({ brush, setBrush }) => {
   const { colour, radius, type: brushType } = brush;
 
   const handleColourChange = (newColour) => { 
-    console.log(newColour);
     if (brushType === CIRCLE_BRUSH) {
       setBrush(genCircleBrush(radius, newColour.hex));
     } else if (brushType === SQUARE_BRUSH) {
@@ -96,19 +95,27 @@ const BrushPicker = ({ brush, setBrush }) => {
           width: `${radius*2+1}px`,
           height: `${radius*2+1}px`,
           background: colour,
-          borderRadius: brushType == SQUARE_BRUSH ? 0 : "50%",
+          borderRadius: brushType === SQUARE_BRUSH ? 0 : "50%",
         }} />
       </div>
       <div className="tooltip">
         <div>
           <div className="toolinput" onChange={ handleChangeBrushType }>
-            <input type="radio" value={SQUARE_BRUSH} name="brushtype" checked={brushType === SQUARE_BRUSH}/> Square
-            <input type="radio" value={CIRCLE_BRUSH} name="brushtype" checked={brushType === CIRCLE_BRUSH}/> Circle
+            <input type="radio" value={SQUARE_BRUSH} name="brushtype" checked={brushType === SQUARE_BRUSH} readOnly/> Square
+            <input type="radio" value={CIRCLE_BRUSH} name="brushtype" checked={brushType === CIRCLE_BRUSH} readOnly/> Circle
           </div>
           <div>
-            <input type="range" id="size" name="size"
-                  min="0" max="50"   value={radius} onChange={handleRadiusChange}/>
-            <label for="size">Size</label>
+            <label>Size:
+              <input 
+                type="range"
+                id="size"
+                name="size"
+                min="0" 
+                max="50"   
+                value={radius} 
+                onChange={handleRadiusChange}
+              />
+            </label>
           </div>
         </div>
 
