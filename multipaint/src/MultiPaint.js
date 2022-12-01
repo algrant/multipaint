@@ -9,7 +9,6 @@ class MultiPaint {
     this.fill([128, 128, 128, 256]);
 
     this.pixelDex = new Uint32Array(width*height);
-    // this.pixelDex = this.pixelDex.map((_, i) => (i%height + i/height)%(width/2));
     this.pixelDex = this.pixelDex.map((_, i) => i);
     
     const pixMatch = genFifteenPuzzlePixelDex(512/4);

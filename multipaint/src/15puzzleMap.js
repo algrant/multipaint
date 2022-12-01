@@ -10,7 +10,11 @@ export const genFifteenPuzzlePixelDex = (tileSize) => {
 
   */
   
-  const shiftedSquares = [2, 8, 3, 6, 7, 13, 10, 14, 1, 9, 12, 4, 5, 11, 15];
+  const shiftedSquares = [
+    5, 11, 9, 15,
+    14, 4, 2, 13,
+    12, 8, 6, 10,
+    7, 3, 1 ];
 
   const pixMatch = [];
 

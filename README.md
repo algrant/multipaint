@@ -20,11 +20,25 @@ data
  - index data  BigUint32Array --  ( height x width ) 64-bit unsigned integers, index values from 0 to (height*width)-1.
 
 functions
-  - setPixelIndex(x, y, index)
-    - directly sets index for pixel at x,y
-
   - setPixelColour(x, y, colour)
     - set all pixels sharing index at x,y to be this colour
+
+
+# TODO
+Stop using full index map - as this doesn't work for non orthogonal rotations, also annoying in terms of splitting into multiple images...
+
+
+Split this into a texture map and "render maps"
+ - render map(s)
+  - triangles as list of points + uv list of points from texture map
+
+
+If we only use orthogonal turns these transforms should be easy...
+
+- Draw full stroke in new layer (mouse down, drag, mouse up)
+
+- For every tile under stroke area run
+  - every pixel in original tile check inverse transform to full stroke in new layer
 
 
 
