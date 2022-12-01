@@ -50,8 +50,8 @@ class MultiPaint {
   paintPointBrushColour(x, y, brush, colour) {
     for(let i = 0; i < brush.width; i ++) {
       for (let j = 0; j < brush.height; j ++) {
-        const pix_x = x + brush.x_offset + i;
-        const pix_y = y + brush.y_offset + j;
+        const pix_x = Math.floor(x) + brush.x_offset + i;
+        const pix_y = Math.floor(y) + brush.y_offset + j;
         if (
           0 <= pix_x && pix_x < this.width &&
           0 <= pix_y && pix_y < this.height &&
@@ -66,7 +66,6 @@ class MultiPaint {
   fill(colour) {
     this.imData = this.imData.map((_, index) => colour[index%4]);
   }
-
 }
 
 export default MultiPaint;
