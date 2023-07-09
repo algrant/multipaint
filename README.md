@@ -1,19 +1,18 @@
 # multipaint
 react paint canvas app
 
-
-# as simple as possible
+## as simple as possible
 let's directly use the canvas using pixels & the ImageData object
 https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
 
-# general theory
-let's make an multipaint class
+## general theory
+let's make an multip$aint class
 
 data
- - img size 
+ - img size
     width*height < 2^32 (based on using the BigUint32Array for index data...)
 
- - img pixel data  
+ - img pixel data
   - The Uint8ClampedArray contains [height × width × 4] bytes (8-bit unsigned integers) of data, with index values ranging from 0 to (height×width×4)-1.)
   -- Uint8ClampedArray
 
@@ -23,8 +22,36 @@ functions
   - setPixelColour(x, y, colour)
     - set all pixels sharing index at x,y to be this colour
 
+## Getting (re) started
 
-# TODO
+Make sure you have node and yarn installed, clone the repo then...
+
+```
+# get into src directory
+cd multipaint
+
+# install node modules... everything is deprecated.
+yarn
+
+# follow this https://stackoverflow.com/questions/61657685/npm-doesnt-install-node-gyp-error-class-v8object-has-no-member-named-for
+# install automagic updater...
+npm install -g npm-check-updates
+# run it...
+npm-check-updates -u
+
+# try yarn again
+yarn
+
+# run dev server with
+yarn start
+```
+
+
+# TODO 2023
+  * add some docs on starting the app...
+
+
+# TODO 2022
 Stop using full index map - as this doesn't work for non orthogonal rotations, also annoying in terms of splitting into multiple images...
 
 
@@ -42,7 +69,7 @@ If we only use orthogonal turns these transforms should be easy...
 
 
 
-# todo
+# todo 2021
 
 # features
 - colour selection
@@ -60,11 +87,11 @@ If we only use orthogonal turns these transforms should be easy...
   - ui
     - show brush outline rather than mouse & show it in all locations
     - display partial inputs - (i.e. for stroke input during move)
-  - instead of 
+  - instead of
 
 - undo functionality
   - save all inputs
-    - undo = rebuild from beginning using inputs up to now 
+    - undo = rebuild from beginning using inputs up to now
       --> could save some number of current "frames" every n inputs to make this faster...
 
   - save some number of generated images
