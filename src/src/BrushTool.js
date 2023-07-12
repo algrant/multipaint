@@ -1,24 +1,23 @@
-import React, { useState } from 'react'
-import { CompactPicker } from 'react-color';
-import "./BrushTool.css"
-
+import React, { useState } from "react";
+import { CompactPicker } from "react-color";
+import "./BrushTool.css";
 
 const hexToRGB = (hex) => {
-  hex = '0x' + hex.slice(1,);
-  let r = (hex >> 16) & 0xFF
-  let g = (hex >> 8) & 0xFF
-  let b = hex & 0xFF
+  hex = "0x" + hex.slice(1);
+  let r = (hex >> 16) & 0xff;
+  let g = (hex >> 8) & 0xff;
+  let b = hex & 0xff;
   return [r, g, b];
-}
+};
 
 // square brush with half width r
 const SQUARE_BRUSH = "SQUARE_BRUSH";
 const squareBrush = (r) => ({
-  width: r*2 + 1,
-  height: r*2 + 1,
+  width: r * 2 + 1,
+  height: r * 2 + 1,
   x_offset: -r,
   y_offset: -r,
-  paint_mask: () => true
+  paint_mask: () => true,
 });
 
 export const genSquareBrush = (radius, colour) => {
@@ -28,17 +27,17 @@ export const genSquareBrush = (radius, colour) => {
     colour: colour,
     colourArray: hexToRGB(colour),
     brush: squareBrush(radius),
-  }
+  };
 };
 
 // circle brush with radius r
 const CIRCLE_BRUSH = "CIRCLE_BRUSH";
 const circleBrush = (r) => ({
-  width: r*2 + 1,
-  height: r*2 + 1,
+  width: r * 2 + 1,
+  height: r * 2 + 1,
   x_offset: -r,
   y_offset: -r,
-  paint_mask: (i, j) => (i - r)*(i - r) + (j - r)*(j - r) < r*r
+  paint_mask: (i, j) => (i - r) * (i - r) + (j - r) * (j - r) < r * r,
 });
 
 export const genCircleBrush = (radius, colour) => {
@@ -48,7 +47,7 @@ export const genCircleBrush = (radius, colour) => {
     colour: colour,
     colourArray: hexToRGB(colour),
     brush: circleBrush(radius),
-  }
+  };
 };
 
 const BrushPicker = ({ brush, setBrush }) => {
@@ -56,7 +55,7 @@ const BrushPicker = ({ brush, setBrush }) => {
 
   const { colour, radius, type: brushType } = brush;
 
-  const handleColourChange = (newColour) => { 
+  const handleColourChange = (newColour) => {
     if (brushType === CIRCLE_BRUSH) {
       setBrush(genCircleBrush(radius, newColour.hex));
     } else if (brushType === SQUARE_BRUSH) {
@@ -66,13 +65,13 @@ const BrushPicker = ({ brush, setBrush }) => {
 
   const handleChangeBrushType = (e) => {
     const newBrushType = e.target.value;
-  
+
     if (newBrushType === CIRCLE_BRUSH) {
       setBrush(genCircleBrush(radius, colour));
     } else if (newBrushType === SQUARE_BRUSH) {
       setBrush(genSquareBrush(radius, colour));
     }
-  }
+  };
 
   const handleRadiusChange = (e) => {
     const newRadius = e.target.value;
@@ -91,44 +90,56 @@ const BrushPicker = ({ brush, setBrush }) => {
   return (
     <div className="BrushSetup">
       <div className="BrushView" onClick={handleClick}>
-        <div className="BrushDisplay" style={{
-          width: `${radius*2+1}px`,
-          height: `${radius*2+1}px`,
-          background: colour,
-          borderRadius: brushType === SQUARE_BRUSH ? 0 : "50%",
-        }} />
+        <div
+          className="BrushDisplay"
+          style={{
+            width: `${radius * 2 + 1}px`,
+            height: `${radius * 2 + 1}px`,
+            background: colour,
+            borderRadius: brushType === SQUARE_BRUSH ? 0 : "50%",
+          }}
+        />
       </div>
       <div className="tooltip">
         <div>
-          <div className="toolinput" onChange={ handleChangeBrushType }>
-            <input type="radio" value={SQUARE_BRUSH} name="brushtype" checked={brushType === SQUARE_BRUSH} readOnly/> Square
-            <input type="radio" value={CIRCLE_BRUSH} name="brushtype" checked={brushType === CIRCLE_BRUSH} readOnly/> Circle
+          <div className="toolinput" onChange={handleChangeBrushType}>
+            <input
+              type="radio"
+              value={SQUARE_BRUSH}
+              name="brushtype"
+              checked={brushType === SQUARE_BRUSH}
+              readOnly
+            />{" "}
+            Square
+            <input
+              type="radio"
+              value={CIRCLE_BRUSH}
+              name="brushtype"
+              checked={brushType === CIRCLE_BRUSH}
+              readOnly
+            />{" "}
+            Circle
           </div>
           <div>
-            <label>Size:
-              <input 
+            <label>
+              Size:
+              <input
                 type="range"
                 id="size"
                 name="size"
-                min="0" 
-                max="50"   
-                value={radius} 
+                min="0"
+                max="50"
+                value={radius}
                 onChange={handleRadiusChange}
               />
             </label>
           </div>
         </div>
 
-
-        <CompactPicker 
-          color={colour} 
-          onChangeComplete={ handleColourChange }
-        />
+        <CompactPicker color={colour} onChangeComplete={handleColourChange} />
       </div>
     </div>
   );
 };
-
-
 
 export default BrushPicker;
