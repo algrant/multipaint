@@ -3,7 +3,7 @@ import MultiPaint from './MultiPaint';
 import BrushTool, { genCircleBrush } from './BrushTool';
 import "./App.css";
 
-// A simple react component that watches an imdata
+// A simple react component that watches an imdata buffer & updates canvas on changes
 // inspired by https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
 const DataCanvas = props => {
   const canvasRef = useRef(null)
@@ -28,9 +28,9 @@ const App = () => {
   const [leftBrush, setLeftBrush] = useState(genCircleBrush(10, "#FF0000"));
 
   const [multiPaint] = useState(() => {
-    return new MultiPaint()
+    return MultiPaint.demoTiles();
   });
-  
+
 
   const updateMousePos = (event) => {
     const x = event.nativeEvent.offsetX;
@@ -50,7 +50,6 @@ const App = () => {
     const d = Math.sqrt(dx*dx + dy*dy);
     for (let i = 0; i < d-1; i++) {
       multiPaint.paintPointBrushColour(p0.x+dx*i/d, p0.y+dy*i/d, leftBrush.brush, leftBrush.colourArray);
-      
     }
     multiPaint.paintPointBrushColour(p1.x, p1.y, leftBrush.brush, leftBrush.colourArray);
     setImdataUpdate(imdataUpdate + 1);
@@ -81,22 +80,22 @@ const App = () => {
     <div className="App">
       <div className="FloatyView">
         <div className="ToolBar">
-          <BrushTool 
-            brush={leftBrush} 
+          <BrushTool
+            brush={leftBrush}
             setBrush={ setLeftBrush }
           />
         </div>
         <div className="CanvasContainer">
-          <DataCanvas 
-            imdata = { multiPaint.imData }
+          <DataCanvas
+            width={ multiPaint.width  }
+            height={ multiPaint.height }
+            imdata = { multiPaint.imdata }
             onMouseMove={onMouseMove}
             onMouseDown={onMouseDown}
             onMouseUp={onMouseUp}
             onMouseOut={onMouseOut}
             update = { imdataUpdate }
-            width={ multiPaint.width  } 
-            height={ multiPaint.height }
-          /> 
+          />
         </div>
       </div>
     </div>

@@ -1,0 +1,418 @@
+    {
+        "A": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "translate": [
+                        150,
+                        0
+                    ]
+                },
+                {
+                    "translate": [
+                        1050,
+                        0
+                    ]
+                }
+            ]
+        },
+        "B": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        0,
+                        50
+                    ]
+                },
+                {
+                    "translate": [
+                        900,
+                        50
+                    ]
+                },
+                {
+                    "translate": [
+                        1050,
+                        50
+                    ]
+                }
+            ]
+        },
+        "C": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        50,
+                        0
+                    ]
+                },
+                {
+                    "translate": [
+                        200,
+                        0
+                    ]
+                },
+                {
+                    "translate": [
+                        350,
+                        0
+                    ]
+                }
+            ]
+        },
+        "D": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        50,
+                        50
+                    ]
+                }
+            ]
+        },
+        "E": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        150,
+                        50
+                    ]
+                }
+            ]
+        },
+        "F": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        200,
+                        50
+                    ]
+                },
+                {
+                    "translate": [
+                        350,
+                        50
+                    ]
+                },
+                {
+                    "translate": [
+                        500,
+                        50
+                    ]
+                }
+            ]
+        },
+        "G": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        300,
+                        0
+                    ]
+                }
+            ]
+        },
+        "H": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        300,
+                        50
+                    ]
+                },
+                {
+                    "translate": [
+                        450,
+                        50
+                    ]
+                },
+                {
+                    "translate": [
+                        600,
+                        50
+                    ]
+                }
+            ]
+        },
+        "I": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        450,
+                        0
+                    ]
+                },
+                {
+                    "translate": [
+                        600,
+                        0
+                    ]
+                },
+                {
+                    "translate": [
+                        750,
+                        0
+                    ]
+                }
+            ]
+        },
+        "J": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        500,
+                        0
+                    ]
+                }
+            ]
+        },
+        "K": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        650,
+                        0
+                    ]
+                },
+                {
+                    "translate": [
+                        800,
+                        0
+                    ]
+                },
+                {
+                    "translate": [
+                        950,
+                        0
+                    ]
+                }
+            ]
+        },
+        "L": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        650,
+                        50
+                    ]
+                }
+            ]
+        },
+        "M": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        750,
+                        50
+                    ]
+                }
+            ]
+        },
+        "N": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        800,
+                        50
+                    ]
+                },
+                {
+                    "translate": [
+                        950,
+                        50
+                    ]
+                },
+                {
+                    "translate": [
+                        1100,
+                        50
+                    ]
+                }
+            ]
+        },
+        "O": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        900,
+                        0
+                    ]
+                }
+            ]
+        },
+        "P": {
+            "polygon": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    50
+                ]
+            ],
+            "transforms": [
+                {
+                    "translate": [
+                        1100,
+                        0
+                    ]
+                }
+            ]
+        }
+    }

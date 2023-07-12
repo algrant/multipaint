@@ -9,7 +9,7 @@ export const genFifteenPuzzlePixelDex = (tileSize) => {
     13  14 15 *     5 11 15  *
 
   */
-  
+
   const shiftedSquares = [
     5, 11, 9, 15,
     14, 4, 2, 13,
@@ -20,7 +20,7 @@ export const genFifteenPuzzlePixelDex = (tileSize) => {
 
   shiftedSquares.forEach((newTile, posId) => {
     const newId = newTile - 1;
-    
+
     const oldX = (newId % 4)
     const oldY = (newId - oldX )/ 4;
 
@@ -31,11 +31,11 @@ export const genFifteenPuzzlePixelDex = (tileSize) => {
       for (let j = 0; j < tileSize; j++) {
         pixMatch.push([
           [
-            oldX*tileSize + i, 
+            oldX*tileSize + i,
             oldY*tileSize + j
           ],
           [
-            newX*tileSize + i + 5*tileSize, 
+            newX*tileSize + i + 5*tileSize,
             newY*tileSize + j
           ]
         ])
@@ -57,8 +57,8 @@ export const genFifteenPuzzleMaskedPixels = (tileSize) => {
   }
 
   /* set opacity to 0 for 15s */
-  for(let x = 4*tileSize - 128; x < 4*tileSize; x++) {
-    for (let y = 4*tileSize - 128; y < 4*tileSize; y++) {
+  for(let x = 3*tileSize; x < 4*tileSize; x++) {
+    for (let y = 3*tileSize; y < 4*tileSize; y++) {
       maskedPixels.push([x, y]);
       maskedPixels.push([x + 5*tileSize, y]);
     }

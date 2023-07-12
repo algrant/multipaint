@@ -6,17 +6,45 @@ let's directly use the canvas using pixels & the ImageData object
 https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
 
 ## general theory
-let's make an multip$aint class
+let's make a 2D multipaint class
 
-data
- - img size
-    width*height < 2^32 (based on using the BigUint32Array for index data...)
+starting data
+  // construct from data instead of "pixelMatch"
+  // data
 
- - img pixel data
-  - The Uint8ClampedArray contains [height × width × 4] bytes (8-bit unsigned integers) of data, with index values ranging from 0 to (height×width×4)-1.)
-  -- Uint8ClampedArray
+  Tile = {
+    id: Number,
+    poly: [],
+    transforms: [],
+  }
 
- - index data  BigUint32Array --  ( height x width ) 64-bit unsigned integers, index values from 0 to (height*width)-1.
+  MultiPaintData = {
+    canvas: {
+      width: Number,
+      height: Number,
+      data: Uint8ClampedArray, --> actual pixel data...
+    },
+    tiles: [
+      {
+        poly: [Vec2, Vec2, Vec2, ... ],
+        transforms: [
+          { translate: Vec2, rotate: Angle }, // specifies rotation & translation
+          { translate: Vec2, rotate: Angle },
+        ]
+      },
+    ]
+  }
+
+
+
+operating data
+  * img size
+    * width*height < 2^32 (based on using the BigUint32Array for index data...)
+
+  * img pixel data
+    * The Uint8ClampedArray contains [height × width × 4] bytes (8-bit unsigned integers) of data, with index values ranging from 0 to (height×width×4)-1.)
+
+  * index data  BigUint32Array --  ( height x width ) 64-bit unsigned integers, index values from 0 to (height*width)-1.
 
 functions
   - setPixelColour(x, y, colour)
@@ -48,7 +76,13 @@ yarn start
 
 
 # TODO 2023
-  * add some docs on starting the app...
+  [x] add some docs on starting the app...
+  [x] make infinitycard template
+  [ ] Save and load to file
+    [ ] Save as a single PNG with a data header + all views
+      [ ] First row is just a count of how many rows we need for "header" info
+      [ ] Next rows can be converted into json and read in
+      [ ] Rest of the data is the actual images as defined previously
 
 
 # TODO 2022
