@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/multipaint/static/css/main.4e39a451.css",
+    "main.js": "/multipaint/static/js/main.37d3637b.js",
+    "static/js/496.6763cb7b.chunk.js": "/multipaint/static/js/496.6763cb7b.chunk.js",
+    "index.html": "/multipaint/index.html",
+    "main.4e39a451.css.map": "/multipaint/static/css/main.4e39a451.css.map",
+    "main.37d3637b.js.map": "/multipaint/static/js/main.37d3637b.js.map",
+    "496.6763cb7b.chunk.js.map": "/multipaint/static/js/496.6763cb7b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e39a451.css",
+    "static/js/main.37d3637b.js"
+  ]
+}
